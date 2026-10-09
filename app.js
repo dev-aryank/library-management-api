@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/books", bookRouter);
-app.use("/api/member", )
+app.use("/api/members", memberRouter);
 
 app.use(errorHandler);
 

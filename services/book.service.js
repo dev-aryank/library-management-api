@@ -22,7 +22,6 @@ async function getBookById(bookId) {
 }
 
 async function updateBook(bookId, bookData) {
-
     const existingBook = await Book.findOne({
         _id: bookId,
         isActive: true
@@ -32,29 +31,30 @@ async function updateBook(bookId, bookData) {
         throw new AppError("Book not found", 404);
     }
 
-    delete bookData.availableCopies;
-    delete bookData.isActive;
+    const updateData = { ...bookData };
+    delete updateData.availableCopies;
+    delete updateData.isActive;
 
-    if (bookData.totalCopies !== undefined) {
+    if (updateData.totalCopies !== undefined) {
 
         const borrowedCopies =
             existingBook.totalCopies - existingBook.availableCopies;
 
-        if (bookData.totalCopies < borrowedCopies) {
+        if (updateData.totalCopies < borrowedCopies) {
             throw new AppError(
                 `Cannot reduce total copies below ${borrowedCopies} because ${borrowedCopies} copies are currently borrowed`,
                 400
             );
         }
 
-        bookData.availableCopies =
-            bookData.totalCopies - borrowedCopies;
+        updateData.availableCopies =
+            updateData.totalCopies - borrowedCopies;
     }
 
 
     const updatedBook = await Book.findByIdAndUpdate(
         bookId,
-        bookData,
+        updateData,
         {
             new: true,
             runValidators: true
