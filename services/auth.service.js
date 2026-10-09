@@ -29,7 +29,7 @@ async function login(userData) {
 }
 
 function generateAcessToken(userData){
-    const userPayload = {userId: userData._id};
+    const userPayload = {userId: userData._id, role: userData.role};
     const token = jwt.sign(userPayload, process.env.JWT_ACCESS_SECRET, { expiresIn: '15m' });
     return token;
 }

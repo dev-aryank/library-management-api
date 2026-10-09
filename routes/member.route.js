@@ -1,23 +1,18 @@
 import { Router } from "express";
 import memberController from "../controllers/member.controller.js";
-import validate from "../middlewares/validate.middleware.js";
-import memberValidation from "../validations/member.validation.js";
+import authenticate from "../middlewares/authentication.middleware.js";
+import isAdmin from "../middlewares/authorization.middleware.js";
 
 const router = Router();
 
-router.post("/", validate(memberValidation.createMember), memberController.createMember);
+// router.post("/", memberController.createMember);
 
-router.get("/", memberController.getAllMembers);
+router.get("/", authenticate, isAdmin, memberController.getAllMembers);
 
-router.get("/:id", validate(memberValidation.memberId, "params"), memberController.getMemberById);
+router.get("/:id", memberController.getMemberById);
 
-router.patch(
-    "/:id",
-    validate(memberValidation.memberId, "params"),
-    validate(memberValidation.updateMember),
-    memberController.updateMember
-);
+router.patch("/:id", memberController.updateMember);
 
-router.delete("/:id", validate(memberValidation.memberId, "params"), memberController.deleteMember);
+router.delete("/:id", memberController.deleteMember);
 
 export default router;

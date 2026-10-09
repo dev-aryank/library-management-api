@@ -1,9 +1,5 @@
 import memberService from "../services/member.service.js";
 
-async function createMember(req, res) {
-    const member = await memberService.createMember(req.body);
-    res.status(201).json(member);
-}
 
 async function getAllMembers(req, res) {
     const members = await memberService.getAllMembers();
@@ -26,7 +22,6 @@ async function deleteMember(req, res) {
 }
 
 const memberController = {
-    createMember,
     getAllMembers,
     getMemberById,
     updateMember,

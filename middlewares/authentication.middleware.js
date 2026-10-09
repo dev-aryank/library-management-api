@@ -5,7 +5,7 @@ function authenticate(req, res, next){
     const authHeader = req.headers.authorization;
 
     if(!authHeader?.startsWith("Bearer ")){
-        throw new AppError("Unauthorized", 401);
+        throw new AppError("Login Please", 401);
     }
 
     const token = authHeader.split(" ")[1];
@@ -13,7 +13,8 @@ function authenticate(req, res, next){
     try{
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
         req.user = {
-            id: payload._id
+            userId: payload.userId,
+            role: payload.role
         };
 
         next();

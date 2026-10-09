@@ -14,6 +14,10 @@ const memberSchema = new mongoose.Schema(
             trim: true,
             lowercase: true
         },
+        password: {
+            type: String,
+            required: true
+        },
         phone: {
             type: String,
             trim: true
@@ -21,6 +25,11 @@ const memberSchema = new mongoose.Schema(
         isActive: {
             type: Boolean,
             default: true
+        },
+        role: {
+            type: String,
+            enum: ["MEMBER", "ADMIN"],
+            default: "MEMBER"
         }
     },
     {

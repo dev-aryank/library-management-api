@@ -1,10 +1,6 @@
 import Member from "../models/member.model.js";
 import AppError from "../utils/AppError.js";
 
-async function createMember(memberData) {
-    const member = await Member.create(memberData);
-    return member;
-}
 
 async function getAllMembers() {
     const members = await Member.find({ isActive: true });
@@ -50,7 +46,6 @@ async function deleteMember(memberId) {
 }
 
 const memberService = {
-    createMember,
     getAllMembers,
     getMemberById,
     updateMember,
