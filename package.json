@@ -1,0 +1,16 @@
+{
+  "name": "library-handson",
+  "version": "1.0.0",
+  "description": "Hands-on for Node express and mongoose/mongoDB through a small crud project",
+  "license": "ISC",
+  "author": "aryank.dev",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.11.1"
+  }
+}
